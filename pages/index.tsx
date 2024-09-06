@@ -14,10 +14,6 @@ export default function Home() {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const { chain } = useNetwork();
   const { address, isConnected } = useAccount();
   const { data: usdbBalance } = useContractRead({
@@ -28,7 +24,10 @@ export default function Home() {
   });
 
   const { data: walletClient } = useWalletClient();
-  console.log({ walletClient });
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSendTransaction = async () => {
     if (!recipientAddress || !amount || !walletClient || !address) return;
